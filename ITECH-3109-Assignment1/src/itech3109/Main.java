@@ -4,6 +4,7 @@ package itech3109;
  * @Author: Benjamin Gardiner - 30399545
  * 
  * This is the main class for running the ITECH-3109 Assignment 1 code.
+ * NOTE: Algorithms used are stored in their own separate files
  */
 public class Main {
 
