@@ -17,18 +17,38 @@ public class Main {
 	}
 	
 	private static boolean nextPermutation(int[] permutation) {
-		int length = permutation.length;
-		int max;
 		
-		// If n=ai, i>1 aka array has more than 1 element
-		if(length > 1 && permutation[0] != max) {
-			// Swap ai and ai-1, return true
-			int temp = permutation[length-2];
-			permutation[length-2] = permutation[length-1];
-			permutation[length-1] = temp;
+		// Make sure there are at least 2 elements
+		if(permutation.length < 2) {
+			return false; // Only 1 permutation
+		}
+		
+		// Find max element value and index
+		int max = permutation[0]; // initialize max at the start of array
+		int index = 0;
+		
+		for (int i = 1; i < permutation.length; i++) {
+            if (permutation[i] > max) {
+                max = permutation[i];
+                index = i;
+            }
+        }
+		
+        System.out.println("Max is: " + max);
+
+		
+		// If max is not the first element, swap max with element before it
+		if(permutation[0] != max) {
+			int temp = permutation[index-1];
+			permutation[index-1] = max;
+			permutation[index] = temp;
 			
 			printArray(permutation);
 			return true;	
+		}
+		else {
+			// Permutation step
+			
 		}
 		
 		return false;
