@@ -1,169 +1,134 @@
 package itech3109;
 
-import java.util.Arrays;
-
 /**
  * @Author: Benjamin Gardiner - 30399545
  * 
  * This is the main class for running the ITECH-3109 Assignment 1 code.
- * NOTE: Sorting algorithms used are stored in their own separate files
+ * NOTE: Algorithms used are stored in their own separate files
  */
 public class Main {
-	
-	public static void main(String[] args) {
-        int[] array = {1, 2, 3};
-        
-		boolean result = testNextPerm(array, array.length);
+	private static int callCount = 0;
 
-		if (result) {
-			System.out.println("Next permutation: " + Arrays.toString(array));
-		} else {
-			System.out.println("No more permutations possible.");
-		}
+	public static void main(String[] args) {
+		// Testing
+		int[] testArray = {1,2,3};
 		
-		nextPermutation(array);
-    }
+		do {
+			printArray(testArray);
+		} while (nextPermutation(testArray));
+		
+		System.out.println("Call count: "+callCount);
+	}
 	
-	public static boolean nextPermutation(int[] permutation) {
-		int n = permutation.length; // Max element
-		System.out.println("n "+n);
+	
+	private static boolean nextPermutation(int[] permutation) {
+		callCount++;
+
+		// Get length of array
+		int length = permutation.length;
 		
-		// Check if max element is in the first position
-		if(permutation[0] == n) {
-			System.out.println("in first");
-			if(nextPermutation(permutation))
-			return false;
+		// Make sure there are at least 2 elements
+		if(length < 2) {
+			return false; // Only 1 permutation
 		}
 		
-		// Determine the index of the max element
-		int index = -1;
+		// Find max element value and index of max element
+		int max = permutation[0]; // initialize max and index to the start of array
+		int index = 0;
 		
-		for(int i=0; i<n; i++) {
-			if(permutation[i] == n) {
-				index = i;
-				System.out.println("max index: "+i);
-				break;
-			}
-		}
+		for (int i = 1; i < length; i++) {
+            if (permutation[i] > max) {
+                max = permutation[i];
+                index = i;
+            }
+        }
 		
-		if(index > 1) {
-			// Swap ai and ai-1
-			int temp = permutation[index];
-			permutation[index] = permutation[index-1];
-			permutation[index-1] = temp;
-			return true;
+	
+		// Check if max is NOT the first element
+		if(permutation[0] != max) {
+			// If max is not the first element, swap max with element before it
+//			int temp = permutation[index-1];
+//			permutation[index-1] = max;
+//			permutation[index] = temp;
+			
+			swap(permutation, index, index-1);
+			
+			return true;	
 		}
 		else {
+			 // Call nextPermutation recursively for the smaller (n-1)-element permutation
+		    int[] smallerPermutation = trimArray(permutation, 1, length); // Remove the first element (a1)
+		    
+		    if (nextPermutation(smallerPermutation)) {
+		        // If the recursive call returns true, append a1 to the obtained permutation
+		        int[] newPermutation = appendToArray(smallerPermutation, permutation[0]);
+		        
+		        for (int i = 0; i < length; i++) {
+		            permutation[i] = newPermutation[i]; // Update the original permutation
+		        }
+		        return true;
+		    } else {
+		        return false; // Recursive call returned false, so return false
+		    }
 			
 		}
 		
-		return false;
 	}
 	
-	public static boolean testNextPerm(int[] permutation, int n) {
-
-        // Base case: if n=1, no more permutations are possible
-		if (n == 1) {
-			System.out.println("n=1");
-            return false;
+	public static void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            swap(nums, start, end);
+            start++;
+            end--;
         }
-		
-		// If the maximal element is not in the first position
-		if (permutation[n - 1] != n) {
-			System.out.println("max is not first");
-			// Swap maximal element with the one before it and return true
-			int temp = permutation[n - 1];
-			permutation[n - 1] = permutation[n - 2];
-			permutation[n - 2] = temp;
-            return true;
-		}
-		else {
-			System.out.println("max is first");
-			// Else, if the maximal element is the first (recursive step)
-			if(testNextPerm(permutation, n-1)) {
-				int temp = permutation[n - 1];
-				permutation[n - 1] = permutation[n - 2];
-				permutation[n - 2] = temp;
-				return true;
-			}
-			else {
-				// No more permutations
-				return false;
-			}
-		}
-		
     }
+	
+	private static void swap(int[] array, int i, int j) {
+	    int temp = array[i];
+	    array[i] = array[j];
+	    array[j] = temp;
+	}
+	
+	// Trims array from start index to end index and returns the resulting array
+	private static int[] trimArray(int[] array, int start, int end) {
 
-   
+		// Calculate the size of the trimmed array
+		int newSize = end - start;
+		
+		// Create new array - copy from start to end
+        int[] result = new int[newSize];
+        
+        for (int i = start; i < end; i++) {
+            result[i - start] = array[i];
+        }  
+		// Return smaller array
+		return result;
+	}
+	
+	// Takes an array, increases its size by one and appends elementToAppend onto it
+	private static int[] appendToArray(int[] array, int elementToAppend) {
 
-    
+		// Create new array of size length+1 
+		int[] result = new int[array.length+1];
+		
+		// Copy contents of array to new array
+		for(int i = 0; i < result.length-1; i++) {
+			result[i] = array[i];
+		}
+		
+		// Append elementToAppend to the new array, and return
+		result[result.length-1] = elementToAppend;
+		
+		return result;
+		
+	}
+	
+	// Helper function to print all elements in an array
+	private static void printArray(int[] array) {
+		for (int i = 0; i < array.length; i++) {
+			System.out.print(array[i] + " ");
+		}
+		System.out.println("");
+	}
+
 }
-
-	// Entry point of the program
-//	public static void main(String[] args) {
-//
-//		int[] permutation = {1,2,3};
-//		
-//        do {
-//            for (int num : permutation) {
-//                System.out.print(num + " ");
-//            }
-//            System.out.println();
-//        } while (nextPermutation(permutation));
-//
-//	}
-//	
-//	
-//	public static boolean nextPermutation(int[] permutation) {
-//		int n = permutation.length;	// Maximal element of permutation
-//		int maxElement = n;
-//		int maxElementIndex = -1;
-//		
-//		// Find the index of the max element
-//		for(int i=0; i<n; i++) {
-//			if(permutation[i] == maxElement) {
-//				maxElementIndex = i;
-//				break;
-//			}
-//		}
-//		
-//		
-//		int maxValue = n;
-//		int maxIndex = -1;
-//		
-//		// Find the maximal element
-//		for (int i = 0; i < n; i++) {
-//			if (permutation[i] == maxValue) {
-//				maxIndex = i;
-//				break;
-//			}
-//		}
-//		
-//		// Check if maximal element is not the first
-//		if(maxIndex > 0) {
-//			// Swap maximal element with the one before it and return true
-//			int temp = permutation[maxIndex];
-//			permutation[maxIndex] = permutation[maxIndex - 1];
-//			permutation[maxIndex - 1] = temp;
-//			return true;
-//		}
-//		else {
-//			// If maximal element is the first, recursivly call the next permutation
-//			if(nextPermutation(permutation)) {
-//				int temp = permutation[0];
-//				permutation[0] = maxValue;
-//				
-//				for (int i = 1; i < n - 1; i++) {
-//                    permutation[i - 1] = permutation[i];
-//                }
-//				permutation[n-2] = temp;
-//				return true;
-//			}
-//			else {
-//				// No more permutations
-//				return false;
-//			}
-//		}
-//	}
-//
-//}
