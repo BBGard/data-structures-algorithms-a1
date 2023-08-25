@@ -6,7 +6,7 @@ package itech3109;
 /**
  * ITECH 3109 Assignment 1 - Task 1.1
  * Recursive implementation of the nextPermutation algorithm
- * @author Benjamin Gardiner - 30399545
+ * @author Benjamin Gardiner - Student ID: 30399545
  */
 public class RecursiveNextPermutation {
 	private int callCount = 0; // simple integer to count recursive calls

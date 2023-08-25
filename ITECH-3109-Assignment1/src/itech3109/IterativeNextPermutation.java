@@ -9,7 +9,16 @@ package itech3109;
  * @author Benjamin Gardiner - 30399545
  */
 public class IterativeNextPermutation {
-	private int callCount = 0; // simple integer to count calls
+	private int callCount = 0; // simple integer to count calls - should always be 1 for iterative algorithm
+	
+//	private int[] currentPermutation; // Holds the current permutation
+//    private boolean hasNext;	// Indicates if there are more permutations to generate
+	
+//	public IterativeNextPermutation(int[] initialArray) {
+//		// Setup initial parameters
+//		currentPermutation = initialArray.clone();
+//        hasNext = true;
+//	}
 
 	/*
      * Task 1.2
@@ -17,7 +26,7 @@ public class IterativeNextPermutation {
      * @param permutation the input array to be permuted
      * @return true if a next permutation exists, false otherwise
      */
-    private boolean nextPermutation(int[] permutation) {
+    public boolean nextPermutation(int[] permutation) {
         callCount++;
 
         // Get length of array
@@ -36,7 +45,8 @@ public class IterativeNextPermutation {
 
         // If no such element is found, it means it's the last permutation
         if (currentIndex < 0) {
-            reverse(permutation, 0, length - 1);
+            reverse(permutation, 0, length - 1);           
+//        	hasNext = false;
             return false;
         }
 
@@ -50,10 +60,11 @@ public class IterativeNextPermutation {
         swap(permutation, currentIndex, nextIndex);
 
         // Reverse the elements to the right of currentIndex
-        reverse(permutation, currentIndex + 1, length - 1);
+        reverse(permutation, currentIndex + 1, length - 1);        
 
         return true;
     }
+	
 	
 	/**
      * Reverses the elements in an array between start and end indices (inclusive).
@@ -137,4 +148,24 @@ public class IterativeNextPermutation {
 	public int getCallCount() {
 		return callCount;
 	}
+	
+//	public int[] getCurrentPermutation() {
+//        return currentPermutation;
+//    }
+//	
+//	public boolean hasNext() {
+//		return hasNext;
+//	}
+//	
+	 /**
+     * Prints the current permutation.
+     * 
+     * @param permutation the current permutation to be printed
+     */
+//    public void printCurrentPermutation(int[] permutation) {
+//        for (int i = 0; i < permutation.length; i++) {
+//            System.out.print(permutation[i] + " ");
+//        }
+//        System.out.println("");
+//    }
 }
