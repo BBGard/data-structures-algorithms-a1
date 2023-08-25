@@ -7,20 +7,23 @@ package itech3109;
  * NOTE: Algorithms used are stored in their own separate files
  */
 public class Main {
-	private static int callCount = 0;
+	private static int callCount = 0; // simple int to count recursive calls
 
+	/**
+     * Main method to run tests.
+     */
 	public static void main(String[] args) {
 		// Testing
-		int[] testArray = {1,2,3};
-		
-		do {
-			printArray(testArray);
-		} while (nextPermutation(testArray));
-		
-		System.out.println("Call count: "+callCount);
+		runTests();
 	}
 	
 	
+	/*
+	 * Task 1.1
+	 * Recursive implementation of the nextPermutation algorithm
+	 * @param permutation the input array to be permuted
+	 * @return true if a next permutation exists, false otherwise
+	 */
 	private static boolean nextPermutation(int[] permutation) {
 		callCount++;
 
@@ -46,11 +49,7 @@ public class Main {
 	
 		// Check if max is NOT the first element
 		if(permutation[0] != max) {
-			// If max is not the first element, swap max with element before it
-//			int temp = permutation[index-1];
-//			permutation[index-1] = max;
-//			permutation[index] = temp;
-			
+			// If max is not the first element, swap max with element before it			
 			swap(permutation, index, index-1);
 			
 			return true;	
@@ -75,21 +74,42 @@ public class Main {
 		
 	}
 	
-	public static void reverse(int[] nums, int start, int end) {
+	/**
+     * Reverses the elements in an array between start and end indices (inclusive).
+     * 
+     * @param array  the array to be reversed
+     * @param start the starting index
+     * @param end   the ending index
+     */
+	public static void reverse(int[] array, int start, int end) {
         while (start < end) {
-            swap(nums, start, end);
+            swap(array, start, end);
             start++;
             end--;
         }
     }
 	
+	/**
+     * Swaps two elements in an array.
+     * 
+     * @param array the array in which elements are to be swapped
+     * @param i     the index of the first element
+     * @param j     the index of the second element
+     */
 	private static void swap(int[] array, int i, int j) {
 	    int temp = array[i];
 	    array[i] = array[j];
 	    array[j] = temp;
 	}
 	
-	// Trims array from start index to end index and returns the resulting array
+	 /**
+     * Trims an array from a start index to an end index and returns the resulting array.
+     * 
+     * @param array the input array
+     * @param start the starting index (inclusive)
+     * @param end   the ending index (exclusive)
+     * @return the trimmed array
+     */
 	private static int[] trimArray(int[] array, int start, int end) {
 
 		// Calculate the size of the trimmed array
@@ -105,7 +125,13 @@ public class Main {
 		return result;
 	}
 	
-	// Takes an array, increases its size by one and appends elementToAppend onto it
+	 /**
+     * Appends an element to an array by increasing its size by one.
+     * 
+     * @param array           the input array
+     * @param elementToAppend the element to append
+     * @return the new array with the element appended
+     */
 	private static int[] appendToArray(int[] array, int elementToAppend) {
 
 		// Create new array of size length+1 
@@ -123,12 +149,33 @@ public class Main {
 		
 	}
 	
-	// Helper function to print all elements in an array
-	private static void printArray(int[] array) {
+	/**
+     * Helper function to print all elements in an array.
+     * 
+     * @param array the array to be printed
+     */	private static void printArray(int[] array) {
 		for (int i = 0; i < array.length; i++) {
 			System.out.print(array[i] + " ");
 		}
 		System.out.println("");
+	}
+	
+	/**
+	 * Runs tests on all algorithms
+	 */
+	private static void runTests() {
+		// Task 1 - Recursive nextPermutation
+		int[] testArray = { 1, 2, 3 };
+		System.out.println("TESTING\nTask 1 - Recursive nextPermutation");
+		System.out.println("Expected output: \n1 2 3\n1 3 2\n3 1 2\n2 1 3\n2 3 1\n3 2 1\n");
+		System.out.println("Actual output:");
+
+		do {
+			printArray(testArray);
+		} while (nextPermutation(testArray));
+
+		System.out.println("\nCall count: "+callCount);
+		System.out.println("END TEST");
 	}
 
 }
