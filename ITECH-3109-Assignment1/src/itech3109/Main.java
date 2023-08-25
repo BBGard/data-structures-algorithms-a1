@@ -100,7 +100,7 @@ public class Main {
 		// Test initial MergeSort
 		InsertionSort is = new InsertionSort();
 		int[] arrayToSort3 = { 2, 5, 7, 3, 4, 1, 6 };
-//		int[] arrayToSort3 = {  6,1,4 };
+//		int[] arrayToSort3 = {  5,4,3,2,1 };
 
 		System.out.println("\n------- TESTING ------- \nTask 2 - InsertionSort\n\nOriginal Array:");
 		printArray(arrayToSort3);

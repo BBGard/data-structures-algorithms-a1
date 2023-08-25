@@ -14,6 +14,7 @@ public class InsertionSort {
 		for (int i = 1; i < values.length; i++) {
 			int currentElement = values[i];
 			int previousElementIndex;
+			comparisons++; 
 			
 			// Compares next item with previous item, swaps them if the next item is smaller
 			for (previousElementIndex = i - 1; previousElementIndex >= 0 && currentElement < values[previousElementIndex]; previousElementIndex--) {
