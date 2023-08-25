@@ -7,6 +7,8 @@ package itech3109;
  * @author Benjamin Gardiner - Student ID: 30399545
  */
 public class MergeSort {
+	int comparisons; // Counter for comparisons
+    int swaps;		 // Counter for swaps
 
 	/**
 	 * Sorts an array of integers in ascending order using the MergeSort algorithm.
