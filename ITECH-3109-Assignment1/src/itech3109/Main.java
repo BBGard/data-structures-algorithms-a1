@@ -100,6 +100,7 @@ public class Main {
 		// Test initial MergeSort
 		InsertionSort is = new InsertionSort();
 		int[] arrayToSort3 = { 2, 5, 7, 3, 4, 1, 6 };
+//		int[] arrayToSort3 = {  6,1,4 };
 
 		System.out.println("\n------- TESTING ------- \nTask 2 - InsertionSort\n\nOriginal Array:");
 		printArray(arrayToSort3);
@@ -110,6 +111,13 @@ public class Main {
 		printArray(arrayToSort3);
 
 		System.out.println("\n------ END TEST ------");
+		
+		// Element Comparison Tests
+		System.out.println("\n------- TESTING ------- \nTask 2 - QuickSort Element Comparisons\n\nOriginal Array:");
+		int[] smallArray = { 2, 5, 7, 3, 4, 1, 6 };
+		
+		qs.quickSort(smallArray);
+		System.out.println("Element comparisons: " + qs.getElementComparisons());
 		
 	}
 

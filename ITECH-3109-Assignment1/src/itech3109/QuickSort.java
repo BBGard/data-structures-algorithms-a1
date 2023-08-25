@@ -7,6 +7,7 @@ package itech3109;
  * @author Benjamin Gardiner - Student ID: 30399545
  */
 public class QuickSort {
+    private int comparisons; // Counter for element comparisons
 
 	/**
 	 * Sorts an array of integers in ascending order using the QuickSort algorithm.
@@ -14,7 +15,7 @@ public class QuickSort {
 	 * @param values The array of integers to be sorted.
 	 */
 	public void quickSort(int[] values) {
-
+        comparisons = 0; // Initialize the element comparisons counter
 		quickSortPart(values, 0, values.length - 1);
 	}
 
@@ -29,7 +30,7 @@ public class QuickSort {
 	private void quickSortPart(int[] values, int left, int right) {
 		// Partition the array and get the pivot index
 		int pivot = partition(values, left, right);
-
+		
 		// Recursively sort the left subarray (elements less than the pivot)
 		if (left < pivot - 1) {
 			quickSortPart(values, left, pivot - 1);
@@ -52,17 +53,26 @@ public class QuickSort {
 	 */
 	private int partition(int[] values, int left, int right) {
 		int pivotValue = values[(left + right) / 2]; // Choose the pivot element
+		
 		while (left <= right) {
+        	comparisons++; // Increment the element comparisons count
+
 			// Find the first element from the left greater than the pivot
 			while (values[left] < pivotValue)
 				left++;
+            	comparisons++; // Increment the element comparisons count
+
 
 			// Find the first element from the right smaller than the pivot
 			while (values[right] > pivotValue)
 				right--;
+            	comparisons++; // Increment the element comparisons count
+
 
 			// Swap the elements if needed
 			if (left <= right) {
+            	comparisons++; // Increment the element comparisons count
+
 				swap(values, left, right);
 				left++;
 				right--;
@@ -83,5 +93,14 @@ public class QuickSort {
 		array[firstIndex] = array[secondIndex];
 		array[secondIndex] = temp;
 	}
+	
+	/**
+     * Get the number of element comparisons performed during the sorting process.
+     * 
+     * @return The count of element comparisons.
+     */
+    public int getElementComparisons() {
+        return comparisons;
+    }
 
 }

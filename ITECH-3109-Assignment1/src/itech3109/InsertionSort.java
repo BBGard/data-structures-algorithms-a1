@@ -7,20 +7,24 @@ package itech3109;
  * @author Benjamin Gardiner - 30399545
  */
 public class InsertionSort {
+    int comparisons = 0; // Initialize a counter for comparisons
 
 	public void insertionSort(int[] values) {
 
 		for (int i = 1; i < values.length; i++) {
 			int currentElement = values[i];
-			int j;
-
+			int previousElementIndex;
+			
 			// Compares next item with previous item, swaps them if the next item is smaller
-			for (j = i - 1; j >= 0 && currentElement < values[j]; j--) {
-				values[j + 1] = values[j];
+			for (previousElementIndex = i - 1; previousElementIndex >= 0 && currentElement < values[previousElementIndex]; previousElementIndex--) {
+				values[previousElementIndex + 1] = values[previousElementIndex];
+                comparisons++; // Increment the comparison counter
 			}
-			values[j + 1] = currentElement;
+			values[previousElementIndex + 1] = currentElement;
 
 		}
+        System.out.println("Number of comparisons performed: " + comparisons);
+
 	}
 
 }
