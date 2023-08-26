@@ -21,10 +21,13 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		// Initial Testing
-//		runTests();
+		runTests();
 		
 		// Task 3
-		
+
+		System.out.println("\n\n-----------------------------------------");
+		System.out.println("-------------- Task 3 -------------------");
+		System.out.println("-----------------------------------------");
 		// Run Sorting algorithms
         SortingAlgorithm insertionSort = new InsertionSort(); 
         SortingAlgorithm mergeSort = new MergeSort(); 
@@ -43,6 +46,7 @@ public class Main {
 	 * @param sortingAlgorithm the sorting algorithm to use
 	 */
 	private static void testSortingAlgorithm(SortingAlgorithm sortingAlgorithm) {
+		
 //		int[] testArray = {1, 2, 3}; // The array to test
 //		int[] testArray = {1, 2, 3, 4}; // The array to test
 		int[] testArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // The array to test
@@ -119,6 +123,9 @@ public class Main {
 		testIterativeNextPermutation();
 
 		// Task 2 - QuickSort, MergeSort, and InsertionSort
+		System.out.println("\n\n-----------------------------------------");
+		System.out.println("-------------- Task 2 -------------------");
+		System.out.println("-----------------------------------------");
 		testQuickSort();
 		testMergeSort();
 		testInsertionSort();
@@ -126,6 +133,9 @@ public class Main {
 	}
 
 	private static void testRecursiveNextPermutation() {
+		System.out.println("\n\n-----------------------------------------");
+		System.out.println("-------------- Task 1.1 -------------------");
+		System.out.println("-----------------------------------------");
 		RecursiveNextPermutation task1_1 = new RecursiveNextPermutation();
 		int[] testArray = { 1, 2, 3};
 		System.out.println("\n------- TESTING ------- \nTask 1.1 - Recursive nextPermutation");
@@ -141,6 +151,9 @@ public class Main {
 	}
 
 	private static void testIterativeNextPermutation() {
+		System.out.println("\n\n-----------------------------------------");
+		System.out.println("-------------- Task 1.2 -------------------");
+		System.out.println("-----------------------------------------");
 		int[] testArray = { 1, 2, 3 };
 		System.out.println("\n------- TESTING ------- \nTask 1.2 - Iterative nextPermutation");
 		System.out.println("NOTE: Call count should be 6");
