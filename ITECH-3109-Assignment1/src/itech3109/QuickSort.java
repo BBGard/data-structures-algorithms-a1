@@ -7,7 +7,7 @@ package itech3109;
  * @author Benjamin Gardiner - Student ID: 30399545
  */
 public class QuickSort {
-    private int comparisons; // Counter for element comparisons
+    private long comparisons; // Counter for element comparisons
 
 	/**
 	 * Sorts an array of integers in ascending order using the QuickSort algorithm.
@@ -40,6 +40,7 @@ public class QuickSort {
 		if (pivot + 1 < right) {
 			quickSortPart(values, pivot + 1, right);
 		}
+		
 	}
 
 	/**
@@ -52,34 +53,43 @@ public class QuickSort {
 	 * @return The pivot index after partitioning.
 	 */
 	private int partition(int[] values, int left, int right) {
-		int pivotValue = values[(left + right) / 2]; // Choose the pivot element
-		
-		while (left <= right) {
-        	comparisons++; // Increment the element comparisons count
-
-			// Find the first element from the left greater than the pivot
-			while (values[left] < pivotValue)
-				left++;
-            	comparisons++; // Increment the element comparisons count
+		while(true) {
 
 
-			// Find the first element from the right smaller than the pivot
-			while (values[right] > pivotValue)
-				right--;
-            	comparisons++; // Increment the element comparisons count
+			while (left < right && values[left] < values[right]) {
+	        	comparisons++; // Increment the element comparisons count
 
-
-			// Swap the elements if needed
-			if (left <= right) {
-            	comparisons++; // Increment the element comparisons count
-
-				swap(values, left, right);
-				left++;
 				right--;
 			}
+			
+			if(left < right) {
+				swap(values, left++, right);
+	        	comparisons++; // Increment the element comparisons count
+
+			} 
+			else {
+
+				return left;
+			}
+			
+			while (left < right && values[left] < values[right]) {
+	        	comparisons++; // Increment the element comparisons count
+
+				left++;
+			}
+			
+			if(left < right) {
+				swap(values, left, right--);
+	        	comparisons++; // Increment the element comparisons count
+
+			}
+			else {
+
+				return right;
+			}
 		}
-		return left - 1; // Return the pivot index after partitioning
 	}
+
 
 	/**
 	 * Swaps two elements in an array.
@@ -95,12 +105,18 @@ public class QuickSort {
 	}
 	
 	/**
-     * Get the number of element comparisons performed during the sorting process.
-     * 
-     * @return The count of element comparisons.
-     */
-    public int getElementComparisons() {
-        return comparisons;
-    }
+	 * Prints out the number of comparisons
+	 */
+	public void printStats() {
+	    System.out.println("Actual Comparisons: " + comparisons);
+	}
+	
+	/**
+	 * Returns the number of comparisons
+	 * @return comparisons the number  of comparisons
+	 */
+	public long getComparisons() {
+		return comparisons;
+	}
 
 }

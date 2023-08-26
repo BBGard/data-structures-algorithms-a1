@@ -7,8 +7,7 @@ package itech3109;
  * @author Benjamin Gardiner - Student ID: 30399545
  */
 public class MergeSort {
-	int comparisons; // Counter for comparisons
-    int swaps;		 // Counter for swaps
+	private long comparisons; // Counter for comparisons
 
 	/**
 	 * Sorts an array of integers in ascending order using the MergeSort algorithm.
@@ -16,6 +15,7 @@ public class MergeSort {
 	 * @param values The array of integers to be sorted.
 	 */
 	public void mergeSort(int[] values) {
+		comparisons = 0;
 		mergeSortPart(values, 0, values.length - 1);
 
 	}
@@ -59,10 +59,14 @@ public class MergeSort {
 		// Compare values in the two subarrays and merge them into the temporary array
 		while (firstArrayFirstIndex <= firstArrayLastIndex && secondArrayFirstIndex <= secondArrayLastIndex) {
 
-			if (values[firstArrayFirstIndex] < values[secondArrayFirstIndex])
+			// Comparison between values
+			comparisons++;
+			if (values[firstArrayFirstIndex] < values[secondArrayFirstIndex]) {
 				temp[currentPosition++] = values[firstArrayFirstIndex++];
-			else
+			}				
+			else {
 				temp[currentPosition++] = values[secondArrayFirstIndex++];
+			}
 		}
 
 		// If one subarray is exhausted but elements remain in the other, copy the
@@ -76,5 +80,20 @@ public class MergeSort {
 		// the merge
 		for (currentPosition = first; currentPosition <= last; currentPosition++)
 			values[currentPosition] = temp[currentPosition];
+	}
+	
+	/**
+	 * Prints out the number of comparisons
+	 */
+	public void printStats() {
+	    System.out.println("Actual Comparisons: " + comparisons);
+	}
+	
+	/**
+	 * Returns the number of comparisons
+	 * @return comparisons the number  of comparisons
+	 */
+	public long getComparisons() {
+		return comparisons;
 	}
 }

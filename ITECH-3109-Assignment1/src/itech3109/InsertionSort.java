@@ -7,8 +7,7 @@ package itech3109;
  * @author Benjamin Gardiner - 30399545
  */
 public class InsertionSort {
-    int comparisons; // Counter for comparisons
-    int swaps;		 // Counter for swaps
+    private long comparisons; // Counter for comparisons
 
     /**
 	 * Sorts an array of integers in ascending order using the InsertionSort algorithm.
@@ -17,7 +16,6 @@ public class InsertionSort {
 	 */
 	public void insertionSort(int[] values) {
 		comparisons = 0;
-		swaps = 0;
 		
 		for (int i = 1; i < values.length; i++) {
 			int currentElement = values[i];
@@ -34,7 +32,6 @@ public class InsertionSort {
 					
 					// Perform a swap
 					values[previousElementIndex + 1] = values[previousElementIndex];
-					swaps++; // Increment swap count when a swap occurs
 				} else {
 					break; // exit the loop
 				}
@@ -49,10 +46,17 @@ public class InsertionSort {
 	}
     
 	/**
-	 * Prints out the number of swaps and comparisons
+	 * Prints out the number of comparisons
 	 */
 	public void printStats() {
-		System.out.println("\nSwaps: " + swaps);
-	    System.out.println("Comparisons: " + comparisons);
+	    System.out.println("Actual Comparisons: " + comparisons);
+	}
+	
+	/**
+	 * Returns the number of comparisons
+	 * @return comparisons the number  of comparisons
+	 */
+	public long getComparisons() {
+		return comparisons;
 	}
 }

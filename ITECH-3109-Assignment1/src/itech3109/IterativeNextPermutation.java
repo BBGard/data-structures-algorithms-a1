@@ -11,14 +11,6 @@ package itech3109;
 public class IterativeNextPermutation {
 	private int callCount = 0; // simple integer to count calls - should always be 1 for iterative algorithm
 	
-//	private int[] currentPermutation; // Holds the current permutation
-//    private boolean hasNext;	// Indicates if there are more permutations to generate
-	
-//	public IterativeNextPermutation(int[] initialArray) {
-//		// Setup initial parameters
-//		currentPermutation = initialArray.clone();
-//        hasNext = true;
-//	}
 
 	/*
      * Task 1.2
