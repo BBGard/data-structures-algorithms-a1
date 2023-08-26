@@ -1,6 +1,9 @@
 package itech3109;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This is the main class for running the ITECH-3109 Assignment 1 code.
@@ -20,7 +23,8 @@ public class Main {
 	 * Main method to run tests.
 	 */
 	public static void main(String[] args) {
-		// Initial Testing
+		// Task 1.1, 1.2, 2
+		// Initial Testing of algorithms
 		runTests();
 		
 		// Task 3
@@ -32,12 +36,22 @@ public class Main {
         SortingAlgorithm insertionSort = new InsertionSort(); 
         SortingAlgorithm mergeSort = new MergeSort(); 
         SortingAlgorithm quickSort = new QuickSort();
+        
+        // NOTE: Change the value of n to alter the size of testArray
+     	int n = 10; // Size of array to test
+     	
+        testSortingAlgorithm(quickSort, n);
+        testSortingAlgorithm(mergeSort, n);
+        testSortingAlgorithm(insertionSort, n);
 
-        testSortingAlgorithm(quickSort);
-        testSortingAlgorithm(mergeSort);
-        testSortingAlgorithm(insertionSort);
-
-
+        
+        // ---- EXTRA TESTS ----
+        // To test very large arrays, comment out the above 3 lines,
+        // and uncomment the following 3 lines. Set n to desired array size
+//     	System.out.println("\n\n----- EXTRA TESTS -----\n");
+//        testSingleRandomArray(quickSort, n);
+//        testSingleRandomArray(mergeSort, n);
+//        testSingleRandomArray(insertionSort, n);
 		
 	}
 
@@ -45,13 +59,16 @@ public class Main {
 	 * Compute and print out the average number of element comparisons for a sorting algorithm.	
 	 * @param sortingAlgorithm the sorting algorithm to use
 	 */
-	private static void testSortingAlgorithm(SortingAlgorithm sortingAlgorithm) {
+	private static void testSortingAlgorithm(SortingAlgorithm sortingAlgorithm, int n) {
 		
-//		int[] testArray = {1, 2, 3}; // The array to test
-//		int[] testArray = {1, 2, 3, 4}; // The array to test
-		int[] testArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // The array to test
-
-		int n = testArray.length; // Size of array to test
+		
+		int[] testArray = new int[n]; // The array to test
+		
+		// Populate the test array with data
+		for(int i=0; i<testArray.length; i++) {
+			testArray[i] = i+1;
+		}
+				
 		int[] tempArray = new int[n]; // Temporary array to run sorting algorithm on
 		
 		double totalComparisons = 0.0;	// Total number of comparisons
@@ -81,7 +98,9 @@ public class Main {
         System.out.println("Total comparisons: " + totalComparisons);
         System.out.println("Average comparisons: " + df.format(averageComparisons));
         System.out.println("\n----- END TEST -----\n");
+		
 	}
+	
 
 	/**
 	 * Helper function to print all elements in an array.
@@ -292,5 +311,32 @@ public class Main {
 		is.printStats();
 		System.out.println("\n------ END TEST ------");
 
+	}
+	
+	/**
+	 * Function to test a single randomly populated array of size n
+	 * Useful for running test on very large arrays
+	 * Outputs the number of comparisons for each sorting algorithm
+	 * @param sortingAlgorithm
+	 * @param n
+	 */
+	private static void testSingleRandomArray(SortingAlgorithm sortingAlgorithm, int n) {
+		// Populate the test array with data in random order
+		System.out.println("Testing Random Array of size: " + n);
+		int[] testArray = new int[n];
+		List<Integer> numberList = new ArrayList<>();
+		for (int i = 1; i <= testArray.length; i++) {
+			numberList.add(i);
+		}
+
+		Collections.shuffle(numberList);
+
+		for (int i = 0; i < testArray.length; i++) {
+			testArray[i] = numberList.get(i);
+		}
+		System.out.println(sortingAlgorithm.getName());
+		sortingAlgorithm.sort(testArray);
+		sortingAlgorithm.printStats();
+		System.out.println("----------------------------------\n");
 	}
 }
