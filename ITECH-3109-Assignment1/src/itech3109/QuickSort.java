@@ -6,7 +6,7 @@ package itech3109;
  * 
  * @author Benjamin Gardiner - Student ID: 30399545
  */
-public class QuickSort {
+public class QuickSort implements SortingAlgorithm {
     private long comparisons; // Counter for element comparisons
 
 	/**
@@ -14,7 +14,7 @@ public class QuickSort {
 	 * 
 	 * @param values The array of integers to be sorted.
 	 */
-	public void quickSort(int[] values) {
+	public void sort(int[] values) {
         comparisons = 0; // Initialize the element comparisons counter
 		quickSortPart(values, 0, values.length - 1);
 	}
@@ -34,11 +34,13 @@ public class QuickSort {
 		// Recursively sort the left subarray (elements less than the pivot)
 		if (left < pivot - 1) {
 			quickSortPart(values, left, pivot - 1);
+			comparisons++;
 		}
 
 		// Recursively sort the right subarray (elements greater than the pivot)
 		if (pivot + 1 < right) {
 			quickSortPart(values, pivot + 1, right);
+			comparisons++;
 		}
 		
 	}
@@ -119,4 +121,8 @@ public class QuickSort {
 		return comparisons;
 	}
 
+	@Override
+	public String getName() {
+		return "QuickSort";
+	}
 }

@@ -6,7 +6,7 @@ package itech3109;
  * 
  * @author Benjamin Gardiner - Student ID: 30399545
  */
-public class MergeSort {
+public class MergeSort implements SortingAlgorithm {
 	private long comparisons; // Counter for comparisons
 
 	/**
@@ -14,7 +14,7 @@ public class MergeSort {
 	 * 
 	 * @param values The array of integers to be sorted.
 	 */
-	public void mergeSort(int[] values) {
+	public void sort(int[] values) {
 		comparisons = 0;
 		mergeSortPart(values, 0, values.length - 1);
 
@@ -95,5 +95,10 @@ public class MergeSort {
 	 */
 	public long getComparisons() {
 		return comparisons;
+	}
+	
+	@Override
+	public String getName() {
+		return "MergeSort";
 	}
 }

@@ -1,5 +1,7 @@
 package itech3109;
 
+import java.text.DecimalFormat;
+
 /**
  * This is the main class for running the ITECH-3109 Assignment 1 code.
  * 
@@ -22,31 +24,59 @@ public class Main {
 //		runTests();
 		
 		// Task 3
-		int n = 3; // Size of array to test
-		int[] testArray = {1, 2, 3}; // The array to test
-		long totalComparisons = 0;	// Total number of comparisons
-		double averageComparisons = 0.0;// Average number of comparisons
-		RecursiveNextPermutation permutationGenerator = new RecursiveNextPermutation();
+		
+		// Run Sorting algorithms
+        SortingAlgorithm insertionSort = new InsertionSort(); 
+        SortingAlgorithm mergeSort = new MergeSort(); 
+        SortingAlgorithm quickSort = new QuickSort();
+
+        testSortingAlgorithm(quickSort);
+        testSortingAlgorithm(mergeSort);
+        testSortingAlgorithm(insertionSort);
+
 
 		
-		// Compute and print out the average number of element comparisons for each sorting algorithm.
-		// QuickSort
-		QuickSort qs = new QuickSort(); // QuickSort algorithm
+	}
+
+	/**
+	 * Compute and print out the average number of element comparisons for a sorting algorithm.	
+	 * @param sortingAlgorithm the sorting algorithm to use
+	 */
+	private static void testSortingAlgorithm(SortingAlgorithm sortingAlgorithm) {
+//		int[] testArray = {1, 2, 3}; // The array to test
+//		int[] testArray = {1, 2, 3, 4}; // The array to test
+		int[] testArray = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; // The array to test
+
+		int n = testArray.length; // Size of array to test
+		int[] tempArray = new int[n]; // Temporary array to run sorting algorithm on
 		
-		// Run QuickSort for all permutations, calculating totalComparisons
-		do {
-			printArray(testArray);
-			qs.quickSort(testArray);
-			totalComparisons += qs.getComparisons();
-		} while (permutationGenerator.nextPermutation(testArray));
+		double totalComparisons = 0.0;	// Total number of comparisons
+		double averageComparisons = 0.0;// Average number of comparisons
 		
+		// Permutation generator using recursive next permutation
+		RecursiveNextPermutation permutationGenerator = new RecursiveNextPermutation();
 		
-		// Calculate averageComparisons
-		averageComparisons = totalComparisons/factorial(n);
-		System.out.println("Factorial(n): " + factorial(n));
-		// Print results
-		System.out.println("Total comparisons: " + totalComparisons);
-		System.out.println("Average comparisons: ");
+		// For formatting the output to 2 decimal places
+		DecimalFormat df = new DecimalFormat("#.##");
+		
+		// Run sorting algorithm for all permutations, calculating totalComparisons
+        do {
+            // Copy the current permutation of testArray into tempArray
+            System.arraycopy(testArray, 0, tempArray, 0, n);
+
+            // Run sort on the temp array
+            sortingAlgorithm.sort(tempArray);
+            totalComparisons += sortingAlgorithm.getComparisons();
+        } while (permutationGenerator.nextPermutation(testArray));
+
+        // Calculate averageComparisons
+        averageComparisons = totalComparisons / factorial(n);
+
+        // Print results
+        System.out.println("\n------ " + sortingAlgorithm.getName() + " --------\n");
+        System.out.println("Total comparisons: " + totalComparisons);
+        System.out.println("Average comparisons: " + df.format(averageComparisons));
+        System.out.println("\n----- END TEST -----\n");
 	}
 
 	/**
@@ -147,7 +177,7 @@ public class Main {
 		System.out.println("\n------- TESTING ------- \nTask 2 - QuickSort\nWorst Case\nOriginal Array:");
 		printArray(worstCaseArray);
 
-		qs.quickSort(worstCaseArray);
+		qs.sort(worstCaseArray);
 
 		System.out.println("\nSorted Array:");
 		printArray(worstCaseArray);
@@ -160,7 +190,7 @@ public class Main {
 		System.out.println("\n------- TESTING ------- \nTask 2 - QuickSort\nBest/Average Case\nOriginal Array:");
 		printArray(averageCaseArray);
 
-		qs.quickSort(averageCaseArray);
+		qs.sort(averageCaseArray);
 
 		System.out.println("\nSorted Array:");
 		printArray(averageCaseArray);
@@ -183,7 +213,7 @@ public class Main {
 		System.out.println("\n------- TESTING ------- \nTask 2 - MergeSort\n\nOriginal Array:");
 		printArray(arrayToSort);
 
-		ms.mergeSort(arrayToSort);
+		ms.sort(arrayToSort);
 
 		System.out.println("\nSorted Array:");
 		printArray(arrayToSort);
@@ -222,7 +252,7 @@ public class Main {
 		// Test worst case - reverse sorted array
 		System.out.println("\n------- TESTING ------- \nTask 2 - InsertionSort\nWorst Case\nOriginal Array:");
 		printArray(worstCaseArray);
-		is.insertionSort(worstCaseArray);
+		is.sort(worstCaseArray);
 		System.out.println("\nSorted Array:");
 		printArray(worstCaseArray);
 		System.out.println("\nExpected number of comparisons is approx 1/2(N2 - N) or: " + expectedComparisonsWorst);
@@ -232,7 +262,7 @@ public class Main {
 		// Test best case - sorted array
 		System.out.println("\n------- TESTING ------- \nTask 2 - InsertionSort\nBest Case\nOriginal Array:");
 		printArray(bestCaseArrray);
-		is.insertionSort(bestCaseArrray);
+		is.sort(bestCaseArrray);
 		System.out.println("\nSorted Array:");
 		printArray(bestCaseArrray);
 		System.out.println("\nExpected number of comparisons is approx N - 1 or: " + expectedComparisonsBest);
@@ -242,7 +272,7 @@ public class Main {
 		// Test average case - random sorted array
 		System.out.println("\n------- TESTING ------- \nTask 2 - InsertionSort\nAverage Case\nOriginal Array:");
 		printArray(averageCaseArray);
-		is.insertionSort(averageCaseArray);
+		is.sort(averageCaseArray);
 		System.out.println("\nSorted Array:");
 		printArray(averageCaseArray);
 		System.out.println("\nExpected number of comparisons is approx 1/4(N2 - N) or: " + expectedComparisonsAverage);
