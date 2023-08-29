@@ -1,7 +1,3 @@
-/**
- * 
- */
-package itech3109;
 
 /**
  * ITECH 3109 Assignment 1 - Task 1.1

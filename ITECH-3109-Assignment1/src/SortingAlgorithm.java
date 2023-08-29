@@ -1,4 +1,3 @@
-package itech3109;
 
 /**
  * An interface for various sorting algorithms

@@ -1,4 +1,3 @@
-package itech3109;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
